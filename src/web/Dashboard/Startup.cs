@@ -15,6 +15,9 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.DataProtection;
 using Dashboard.Api.Security;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Dashboard.Api.Filters;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Dashboard
 {
@@ -45,7 +48,8 @@ namespace Dashboard
             // Add application services.
             services.AddMvc(setup =>
             {
-
+                setup.Filters.Add(new AuthorizeFilter(defaultPolicy));
+                setup.Filters.Add(new UnhandledExceptionFilterAttribute(_loggerFactory));
             })
             .AddJsonOptions(options =>
             {
@@ -80,7 +84,9 @@ namespace Dashboard
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
+            SetupAuthentication(app);
+
             app.UseMvcWithDefaultRoute();
 
             var fileServerOptions = new FileServerOptions { EnableDefaultFiles = true };
@@ -95,6 +101,33 @@ namespace Dashboard
             //{
             //    await context.Response.WriteAsync("Hello World!");
             //});
+        }
+
+
+        private void SetupAuthentication(IApplicationBuilder app)
+        {
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                AuthenticationScheme = AuthenticationSchemeNames.ClientCookie,
+                CookieName = CookieAuthenticationDefaults.CookiePrefix + AuthenticationSchemeNames.ClientCookie,
+                LoginPath = new PathString("/Account/Login"),
+                AccessDeniedPath = new PathString("/Account/AccessDenied"),
+                ExpireTimeSpan = TimeSpan.FromMinutes(240),
+                //Events = new CookieAuthenticationEvents
+                //{
+                //    // Set other options
+                //    OnValidatePrincipal = context => OnValidatePrincipal(context, originalEvents.OnValidatePrincipal),
+                //    OnSignedIn = context => OnSignedIn(context, app.ApplicationServices, originalEvents.OnSignedIn),
+                //    OnSigningIn = context => OnSigningIn(context, originalEvents.OnSigningIn),
+                //    OnRedirectToLogin = context => OnRedirectToLogin(context, originalEvents.OnRedirectToLogin),
+                //    OnRedirectToAccessDenied = context => OnRedirectToAccessDenied(context, originalEvents.OnRedirectToAccessDenied),
+                //    OnRedirectToLogout = context => OnRedirectToLogout(context, originalEvents.OnRedirectToLogout),
+                //    OnRedirectToReturnUrl = context => OnRedirectToReturnUrl(context, originalEvents.OnRedirectToReturnUrl),
+                //    OnSigningOut = context => OnSigningOut(context, app.ApplicationServices, originalEvents.OnSigningOut)
+                //}
+            });
         }
     }
 }

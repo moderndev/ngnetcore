@@ -15,10 +15,19 @@ namespace Dashboard.mvc.controllers
         {
         }
 
+        [Route("/Dashboard")]
         public IActionResult Index()
         {
             return View();
 
+        }
+
+        [AllowAnonymous]
+        public IActionResult Error()
+        {
+            //var model = HttpContext.ToErrorModel();
+            //return View(model);
+            return View();
         }
     }
 }
