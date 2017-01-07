@@ -13,7 +13,7 @@ namespace Dashboard
         {
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseContentRoot($"{Directory.GetCurrentDirectory()}/mvc")
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();

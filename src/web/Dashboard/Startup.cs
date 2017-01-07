@@ -43,6 +43,15 @@ namespace Dashboard
                 .Build();
 
             // Add application services.
+            services.AddMvc(setup =>
+            {
+
+            })
+            .AddJsonOptions(options =>
+            {
+                
+            });
+
 
             // OpenID Connect Authentication Requires Cookie Auth
             services.Configure<SharedAuthenticationOptions>(
@@ -71,13 +80,21 @@ namespace Dashboard
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            app.UseMvcWithDefaultRoute();
+
+            var fileServerOptions = new FileServerOptions { EnableDefaultFiles = true };
+            fileServerOptions.StaticFileOptions.ServeUnknownFileTypes = true;
+            fileServerOptions.StaticFileOptions.DefaultContentType = "text/plain";
+            app.UseFileServer(fileServerOptions);
 
             _logger.LogInformation("Process ID {0}", Process.GetCurrentProcess().Id);
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World!");
+            //});
         }
     }
 }
