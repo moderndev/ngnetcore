@@ -1,0 +1,5 @@
+#:E:\Source\gh\moderndev\ngnetcore\src\web\Dashboard\Dashboard.xproj
+E:\Source\gh\moderndev\ngnetcore\src\web\Dashboard\Dashboard.xproj|E:\Source\gh\moderndev\ngnetcore\src\shared\CommonLib\CommonLib.xproj
+E:\Source\gh\moderndev\ngnetcore\src\web\Dashboard\Dashboard.xproj|E:\Source\gh\moderndev\ngnetcore\src\api\Dashboard.Api\Dashboard.Api.xproj
+E:\Source\gh\moderndev\ngnetcore\src\api\Dashboard.Api\Dashboard.Api.xproj|E:\Source\gh\moderndev\ngnetcore\src\shared\CommonLib.Dashboard\CommonLib.Dashboard.xproj
+E:\Source\gh\moderndev\ngnetcore\src\shared\CommonLib.Dashboard\CommonLib.Dashboard.xproj|E:\Source\gh\moderndev\ngnetcore\src\shared\CommonLib\CommonLib.xproj

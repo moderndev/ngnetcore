@@ -1,0 +1,3 @@
+{
+  "projects": [ "../shared/sln-Main/src", "../api" ]
+}
