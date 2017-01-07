@@ -13,6 +13,8 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.DataProtection;
+using Dashboard.Api.Security;
+using System.Diagnostics;
 
 namespace Dashboard
 {
@@ -27,10 +29,7 @@ namespace Dashboard
             _env = env;
             _loggerFactory = loggerFactory;
             _logger = loggerFactory.CreateLogger<Startup>();
-
-
-
-
+            
         }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -46,8 +45,8 @@ namespace Dashboard
             // Add application services.
 
             // OpenID Connect Authentication Requires Cookie Auth
-            //services.Configure<SharedAuthenticationOptions>(
-            //    options => { options.SignInScheme = AuthenticationSchemeNames.ClientCookie; });
+            services.Configure<SharedAuthenticationOptions>(
+                options => { options.SignInScheme = AuthenticationSchemeNames.ClientCookie; });
 
             services.AddAuthentication();
 
@@ -72,6 +71,8 @@ namespace Dashboard
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            _logger.LogInformation("Process ID {0}", Process.GetCurrentProcess().Id);
 
             app.Run(async (context) =>
             {
