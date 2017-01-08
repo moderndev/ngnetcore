@@ -18,6 +18,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Dashboard.Api.Filters;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace Dashboard
 {
@@ -50,12 +52,16 @@ namespace Dashboard
             {
                 setup.Filters.Add(new AuthorizeFilter(defaultPolicy));
                 setup.Filters.Add(new UnhandledExceptionFilterAttribute(_loggerFactory));
-            })
-            .AddJsonOptions(options =>
-            {
-                
             });
 
+            services.AddAuthorization(
+               options =>
+               {
+                  
+               });
+
+            // https://github.com/aspnet/Hosting/issues/793
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             // OpenID Connect Authentication Requires Cookie Auth
             services.Configure<SharedAuthenticationOptions>(
@@ -68,6 +74,9 @@ namespace Dashboard
             // Add Autofac
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule<WebModule>();
+            containerBuilder.RegisterModule<CoreModule>();
+            containerBuilder.RegisterModule<InfrastructureModule>();
+            
             containerBuilder.Populate(services);
 
             var container = containerBuilder.Build();
@@ -128,6 +137,42 @@ namespace Dashboard
                 //    OnSigningOut = context => OnSigningOut(context, app.ApplicationServices, originalEvents.OnSigningOut)
                 //}
             });
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationScheme = AuthenticationSchemeNames.ClientCookieTemp,
+                AutomaticAuthenticate = false,
+                ExpireTimeSpan = TimeSpan.FromSeconds(5)
+            });
+
+            app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
+            {
+                AuthenticationScheme = AuthenticationSchemeNames.MDOpenIdConnect,
+                RequireHttpsMetadata = false,
+                SaveTokens = true,
+                AutomaticChallenge = false,
+                ClientId = "client",
+                ClientSecret = "secret",
+                ResponseType = OpenIdConnectResponseType.Code,
+                Authority = "http://idp.localtest.me:8080/",
+                SignInScheme = AuthenticationSchemeNames.ClientCookieTemp,
+                GetClaimsFromUserInfoEndpoint = true,
+                Events = new OpenIdConnectEvents
+                {
+                    OnRedirectToIdentityProvider = async redirectContext =>
+                    {
+                        var reAuthCtx =
+                            (ReAuthContext)redirectContext.HttpContext.Items[ReAuthContext.ReAuthContextKey];
+
+                        redirectContext.ProtocolMessage.Prompt = reAuthCtx?.Prompt;
+                        if (reAuthCtx != null && reAuthCtx.LiteVersion)
+                            redirectContext.ProtocolMessage.SetParameter("lite", "true");
+                        redirectContext.ProtocolMessage.LoginHint = reAuthCtx?.LoginHint;
+                        await Task.FromResult(0);
+                    }
+                }
+            });
+
         }
     }
 }

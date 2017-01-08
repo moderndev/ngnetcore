@@ -17,6 +17,9 @@ namespace Dashboard
                 return httpContextAccessor.HttpContext.Authentication;
 
             }).As<AuthenticationManager>().InstancePerLifetimeScope();
+
+            builder.RegisterType<AuthClaimsManager>().As<IAuthClaimsManager>().InstancePerLifetimeScope();
+            builder.RegisterType<WebAuditContext>().AsImplementedInterfaces();
         }
     }
 }

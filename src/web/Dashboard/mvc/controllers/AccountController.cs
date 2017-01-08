@@ -7,16 +7,20 @@ using CommonLib.Dashboard;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Authentication;
 using Dashboard.Api.Security;
+using CommonLib;
 
 namespace Dashboard.mvc.controllers
 {
     [AllowAnonymous]
     public class AccountController : BaseController
     {
-        //private readonly IAuthClaimsManager _authClaimsManager;
+        private readonly IAuthClaimsManager _authClaimsManager;
 
-        public AccountController(Func<ICurrentIdentity> identityFactory) : base(identityFactory)
+        public AccountController(Func<ICurrentIdentity> identityFactory, IAuthClaimsManager authClaimsManager) : base(identityFactory)
         {
+            Args.NotNull(authClaimsManager, nameof(authClaimsManager));
+
+            _authClaimsManager = authClaimsManager;
         }
 
         [HttpGet]
@@ -41,7 +45,23 @@ namespace Dashboard.mvc.controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> ExternalIdpLoginCallback(string returnUrl = "/")
+        {
+            var externalClaimsPrincipal = await HttpContext.Authentication.AuthenticateAsync(AuthenticationSchemeNames.ClientCookieTemp);
+            if (externalClaimsPrincipal == null)
+            {
+                return Challenge();
+            }
+            await _authClaimsManager.SignInFromIdp(externalClaimsPrincipal);
+            await HttpContext.Authentication.SignOutAsync(AuthenticationSchemeNames.ClientCookieTemp);
+
+            returnUrl = string.IsNullOrEmpty(returnUrl) ? "/" : returnUrl;
+            return Redirect(returnUrl);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Logout()
         {
             //await _authClaimsManager.Logout();
 
