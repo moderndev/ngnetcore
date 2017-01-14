@@ -61,11 +61,28 @@ namespace Dashboard.mvc.controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            //await _authClaimsManager.Logout();
+            await _authClaimsManager.Logout();
 
-            return Login();
+            //return Login();
+            return Redirect("/");
+        }
+
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            if (HttpContext.User.IsInRole(Roles.NonVerifiedUser))
+            {
+                return Redirect("/Public/#/RegisterUser/EmailNotValidated");
+            }
+
+            if (HttpContext.User.IsInRole(Roles.UserFromToken))
+            {
+                return RedirectToAction("Login");
+            }
+
+            return View("AccessDenied");
         }
     }
 }

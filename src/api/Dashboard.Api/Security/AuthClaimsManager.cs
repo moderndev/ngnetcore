@@ -25,14 +25,20 @@ namespace Dashboard.Api.Security
             AuthenticationManager = authenticationManager;
         }
 
-        public Task Logout()
+        public async Task Logout()
         {
-            throw new NotImplementedException();
+            await LogoutLobby();
+            try {
+                await AuthenticationManager.SignOutAsync(AuthenticationSchemeNames.MDOpenIdConnect);
+            }
+            catch (Exception ex) { }
+            
         }
 
-        public Task LogoutLobby()
+        public async Task LogoutLobby()
         {
-            throw new NotImplementedException();
+            await AuthenticationManager.SignOutAsync(AuthenticationSchemeNames.ClientCookie);
+            await AuthenticationManager.SignOutAsync(AuthenticationSchemeNames.ClientCookieTemp);
         }
 
         public Task RefreshClaims()
