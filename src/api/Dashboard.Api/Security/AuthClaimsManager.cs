@@ -86,14 +86,14 @@ namespace Dashboard.Api.Security
             var allClaims = new List<Claim>();
             allClaims.AddRange(claims);
 
-            //// add custom claims from external principal claims
-            //AddCustomClaimFromExternalClaimIfItExists(allClaims, ClaimTypes.NameIdentifier, ClaimKeys.IdentityId);
-            //AddCustomClaimFromExternalClaimIfItExists(allClaims, "iat", ClaimKeys.NewIat);
-            //AddCustomClaimFromExternalClaimIfItExists(allClaims, "auth_time", ClaimKeys.NewAuthTime);
+            // add custom claims from external principal claims
+            AddCustomClaimFromExternalClaimIfItExists(allClaims, ClaimTypes.NameIdentifier, "identityId");
+            AddCustomClaimFromExternalClaimIfItExists(allClaims, "iat", "iat");
+            AddCustomClaimFromExternalClaimIfItExists(allClaims, "auth_time", "auth_time");
 
-            //allClaims.AddRange(GetExternalClaimValues(allClaims, "http://schemas.microsoft.com/claims/authnmethodsreferences")
-            //        .Select(v => new Claim(ClaimKeys.Amr, v))
-            //        .ToArray());
+            allClaims.AddRange(GetExternalClaimValues(allClaims, "http://schemas.microsoft.com/claims/authnmethodsreferences")
+                    .Select(v => new Claim("amr", v))
+                    .ToArray());
 
             //allClaims.AddRange(GetClaimsFromDatabase(person));
             //allClaims.AddRange(await GetClaimsUsingDefaultIdentityService(person.UserName));
@@ -107,6 +107,24 @@ namespace Dashboard.Api.Security
             var newId = new ClaimsIdentity(AuthenticationSchemeNames.MDOpenIdConnect, "name", "role");
             newId.AddClaims(claims);
             return newId;
+        }
+
+        private void AddCustomClaimFromExternalClaimIfItExists(List<Claim> claims, string externalClaimName, string customClaimName)
+        {
+            var claim = claims.FirstOrDefault(x => x.Type.ToString() == $"{"external_"}{externalClaimName}");
+            if (claim != null)
+            {
+                claims.Add(new Claim(customClaimName, claim.Value));
+            }
+        }
+
+        private IEnumerable<string> GetExternalClaimValues(IEnumerable<Claim> claims, string name)
+        {
+            return claims
+                .Where(c => c.Type.ToString() == $"{"external_"}{name}")
+                .Select(c => c.Value)
+                .Where(v => !String.IsNullOrEmpty(v))
+                .ToArray();
         }
     }
 }
