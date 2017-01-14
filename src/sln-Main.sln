@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E24CF39A-BD5D-4604-B380-435606FE9FD1}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		IdentityServerSettings.txt = IdentityServerSettings.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{CDF006B1-C709-45D9-9FE1-B565D1248277}"

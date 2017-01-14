@@ -145,18 +145,60 @@ namespace Dashboard
                 ExpireTimeSpan = TimeSpan.FromSeconds(5)
             });
 
+            //app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
+            //{
+            //    AuthenticationScheme = AuthenticationSchemeNames.MDOpenIdConnect,
+            //    RequireHttpsMetadata = false,
+            //    SaveTokens = true,
+            //    AutomaticChallenge = false,
+            //    ClientId = "client",
+            //    ClientSecret = "secret",
+            //    ResponseType = OpenIdConnectResponseType.Code,
+            //    // Authority = "http://idp.localtest.me:8080/",
+            //    Authority = "http://localhost:8080/",
+            //    SignInScheme = AuthenticationSchemeNames.ClientCookieTemp,
+            //    GetClaimsFromUserInfoEndpoint = true,
+            //    Events = new OpenIdConnectEvents
+            //    {
+            //        OnRedirectToIdentityProvider = async redirectContext =>
+            //        {
+            //            var reAuthCtx =
+            //                (ReAuthContext)redirectContext.HttpContext.Items[ReAuthContext.ReAuthContextKey];
+
+            //            redirectContext.ProtocolMessage.Prompt = reAuthCtx?.Prompt;
+            //            if (reAuthCtx != null && reAuthCtx.LiteVersion)
+            //                redirectContext.ProtocolMessage.SetParameter("lite", "true");
+            //            redirectContext.ProtocolMessage.LoginHint = reAuthCtx?.LoginHint;
+            //            await Task.FromResult(0);
+            //        }
+            //    }
+            //});
+
+
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
             {
                 AuthenticationScheme = AuthenticationSchemeNames.MDOpenIdConnect,
+                SignInScheme = AuthenticationSchemeNames.ClientCookieTemp, // "Cookies", //
+
+                Authority = "http://localhost:8080/",
                 RequireHttpsMetadata = false,
-                SaveTokens = true,
-                AutomaticChallenge = false,
-                ClientId = "client",
+
+                ClientId = "client", //"mvc.hybrid",
                 ClientSecret = "secret",
-                ResponseType = OpenIdConnectResponseType.Code,
-                Authority = "http://idp.localtest.me:8080/",
-                SignInScheme = AuthenticationSchemeNames.ClientCookieTemp,
+
+                ResponseType = OpenIdConnectResponseType.Code, //"code id_token",
+                Scope = { "openid", "profile", "email", "api1", "offline_access", "custom.profile" },
                 GetClaimsFromUserInfoEndpoint = true,
+
+                SaveTokens = true,
+
+                TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    NameClaimType = "name", // JwtClaimTypes.Name,
+                    RoleClaimType = "role", // JwtClaimTypes.Role,
+                }
+
+                ,
                 Events = new OpenIdConnectEvents
                 {
                     OnRedirectToIdentityProvider = async redirectContext =>

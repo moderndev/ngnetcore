@@ -21,9 +21,9 @@ namespace Dashboard.Api.Security
         //    return Guid.Empty;
         //}
 
-        public static Guid GetIdentityId(this ClaimsPrincipal externalClaimsPrincipal)
+        public static string GetIdentityId(this ClaimsPrincipal externalClaimsPrincipal)
         {
-            var identityId = Guid.Parse(externalClaimsPrincipal.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var identityId = externalClaimsPrincipal.FindFirst(ClaimTypes.NameIdentifier).Value;
             return identityId;
         }
 

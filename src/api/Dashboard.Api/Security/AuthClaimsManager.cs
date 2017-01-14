@@ -51,9 +51,10 @@ namespace Dashboard.Api.Security
             GenericPrincipal principal;
             //using (var unitOfWork = _unitOfWorkFactory())
             //{
-                var identityId = externalClaimsPrincipal.GetIdentityId();
-                var person = new Person(identityId); //_personRepository.GetByIdentityId(identityId);
-                var claims = GetClaimsFromExternalPrincipal(externalClaimsPrincipal);
+            var identityId = externalClaimsPrincipal.GetIdentityId();
+            var claims = GetClaimsFromExternalPrincipal(externalClaimsPrincipal);
+            var person = new Person(identityId, claims); //_personRepository.GetByIdentityId(identityId);
+                
             //person.ProcessSuccesfulLogin(identityId);
 
             principal = await CreatePrincipal(person, claims);

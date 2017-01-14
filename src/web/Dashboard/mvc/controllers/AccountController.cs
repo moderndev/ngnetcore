@@ -38,6 +38,7 @@ namespace Dashboard.mvc.controllers
             var props = new AuthenticationProperties
             {
                 RedirectUri = $"/Account/ExternalIdpLoginCallback?returnUrl={returnUrl}"
+                // RedirectUri = $"/signin-oidc"
             };
 
             return new ChallengeResult(AuthenticationSchemeNames.MDOpenIdConnect, props);
