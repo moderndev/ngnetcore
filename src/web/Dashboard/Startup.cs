@@ -183,7 +183,7 @@ namespace Dashboard
                 Authority = "http://localhost:8080/",
                 RequireHttpsMetadata = false,
 
-                ClientId = "client", //"mvc.hybrid",
+                ClientId = "client.moderndev", //"mvc.hybrid",
                 ClientSecret = "secret",
 
                 ResponseType = OpenIdConnectResponseType.Code, //"code id_token",
