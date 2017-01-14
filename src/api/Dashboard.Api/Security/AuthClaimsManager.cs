@@ -78,6 +78,7 @@ namespace Dashboard.Api.Security
         private async Task<GenericPrincipal> CreatePrincipal(Person person, IEnumerable<Claim> claims)
         {
             var roles = new[] { person.IsAccountVerified ? Roles.User : Roles.NonVerifiedUser };
+            if (person.IsAdministrator) roles = roles.Append(Roles.Admin).ToArray();
             return await CreatePrincipal(person, claims, roles);
         }
 
