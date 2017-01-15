@@ -11,9 +11,9 @@ namespace CommonLib.Dashboard.Model
         public bool IsAccountVerified { get; private set; }
         public bool IsAdministrator { get; private set; }
 
-        public Person(string uniqueid, List<Claim> claims) {
+        public Person(string uniqueid, string role) {
             IsAccountVerified = true;
-            
+            if (role == "admin") IsAdministrator = true;
         }
     }
 }

@@ -189,7 +189,6 @@ namespace Dashboard
                 ResponseType = OpenIdConnectResponseType.Code, //"code id_token",
                 Scope = { "openid", "profile", "email", "api1", "offline_access", "custom.profile" },
                 GetClaimsFromUserInfoEndpoint = true,
-
                 SaveTokens = true,
 
                 TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters

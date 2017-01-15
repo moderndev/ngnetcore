@@ -53,10 +53,11 @@ namespace Dashboard.Api.Security
             //{
             var identityId = externalClaimsPrincipal.GetIdentityId();
             var claims = GetClaimsFromExternalPrincipal(externalClaimsPrincipal);
-            var person = new Person(identityId, claims); //_personRepository.GetByIdentityId(identityId);
-                
-            //person.ProcessSuccesfulLogin(identityId);
+            var role = GetClaimIfExists(claims, "external_role");
+            var person = new Person(identityId, role); //_personRepository.GetByIdentityId(identityId);
 
+            //person.ProcessSuccesfulLogin(identityId);
+            
             principal = await CreatePrincipal(person, claims);
             
             //unitOfWork.Complete();
@@ -118,6 +119,16 @@ namespace Dashboard.Api.Security
             {
                 claims.Add(new Claim(customClaimName, claim.Value));
             }
+        }
+
+        private string GetClaimIfExists(List<Claim> claims, string claimName)
+        {
+            var claim = claims.FirstOrDefault(x => x.Type.ToString() == claimName);
+            if (claim != null)
+            {
+                return claim.Value;
+            }
+            return string.Empty;
         }
 
         private IEnumerable<string> GetExternalClaimValues(IEnumerable<Claim> claims, string name)
