@@ -20,6 +20,7 @@ using Dashboard.Api.Filters;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Dashboard.Bootstrap;
 
 namespace Dashboard
 {
