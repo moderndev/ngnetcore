@@ -8,6 +8,16 @@
     <PackageTargetFallback>$(PackageTargetFallback);dnxcore50;portable-net45+win8</PackageTargetFallback>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="dev\node_modules\**" />
+    <Compile Remove="dev\typings\**" />
+    <Content Remove="dev\node_modules\**" />
+    <Content Remove="dev\typings\**" />
+    <EmbeddedResource Remove="dev\node_modules\**" />
+    <EmbeddedResource Remove="dev\typings\**" />
+    <None Remove="dev\node_modules\**" />
+    <None Remove="dev\typings\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Update="wwwroot\**\*;web.config">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
