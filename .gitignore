@@ -220,3 +220,4 @@ src/Aconex.Lobby.Web/.vscode/*
 
 busters.json
 *.retry
+src/web/Dashboard/dev/typings/*
