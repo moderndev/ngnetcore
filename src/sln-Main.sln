@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dashboard.Api", "dashboard\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dashboard.Bootstrap", "dashboard\Dashboard.Bootstrap\Dashboard.Bootstrap.csproj", "{5CB4583D-27AC-4F3A-B7EB-F89782D8C7B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard", "dashboard\Dashboard\Dashboard.csproj", "{0EADD091-BFCA-455A-B1DC-CE13845870B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,18 @@ Global
 		{5CB4583D-27AC-4F3A-B7EB-F89782D8C7B8}.Release|x64.Build.0 = Release|x64
 		{5CB4583D-27AC-4F3A-B7EB-F89782D8C7B8}.Release|x86.ActiveCfg = Release|x86
 		{5CB4583D-27AC-4F3A-B7EB-F89782D8C7B8}.Release|x86.Build.0 = Release|x86
+		{0EADD091-BFCA-455A-B1DC-CE13845870B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EADD091-BFCA-455A-B1DC-CE13845870B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EADD091-BFCA-455A-B1DC-CE13845870B9}.Debug|x64.ActiveCfg = Debug|x64
+		{0EADD091-BFCA-455A-B1DC-CE13845870B9}.Debug|x64.Build.0 = Debug|x64
+		{0EADD091-BFCA-455A-B1DC-CE13845870B9}.Debug|x86.ActiveCfg = Debug|x86
+		{0EADD091-BFCA-455A-B1DC-CE13845870B9}.Debug|x86.Build.0 = Debug|x86
+		{0EADD091-BFCA-455A-B1DC-CE13845870B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EADD091-BFCA-455A-B1DC-CE13845870B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EADD091-BFCA-455A-B1DC-CE13845870B9}.Release|x64.ActiveCfg = Release|x64
+		{0EADD091-BFCA-455A-B1DC-CE13845870B9}.Release|x64.Build.0 = Release|x64
+		{0EADD091-BFCA-455A-B1DC-CE13845870B9}.Release|x86.ActiveCfg = Release|x86
+		{0EADD091-BFCA-455A-B1DC-CE13845870B9}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,5 +123,6 @@ Global
 		{2D907E0B-E4B0-4105-864A-6B8AD938D763} = {17D94123-5CA4-42A1-A047-CB2175A42F79}
 		{6ECB21D5-8CAE-4A68-BA23-F73D737BF29C} = {632C2F57-7122-4DAA-A08D-1D9E8040153B}
 		{5CB4583D-27AC-4F3A-B7EB-F89782D8C7B8} = {632C2F57-7122-4DAA-A08D-1D9E8040153B}
+		{0EADD091-BFCA-455A-B1DC-CE13845870B9} = {632C2F57-7122-4DAA-A08D-1D9E8040153B}
 	EndGlobalSection
 EndGlobal
