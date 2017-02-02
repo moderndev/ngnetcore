@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "module": "system",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "noEmitOnError": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es5",
+    "outDir": "../wwwroot-test/apps",
+    "suppressImplicitAnyIndexErrors": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "exclude": [
+    "node_modules",
+    "typings",
+    "wwwroot",
+    "build",
+    "common/components/_template/*",
+    "aot/*",
+    "**/*-aot.ts",
+    "**/boot.ts"
+  ],
+  "angularCompilerOptions": {
+    "genDir": "../apps-aot",
+    "skipMetadataEmit": true
+  }
+}
