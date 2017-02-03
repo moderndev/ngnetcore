@@ -1,4 +1,6 @@
-﻿import { Component, OnInit, OnDestroy, ModuleWithProviders } from "@angular/core";
+﻿///<reference path="../../../typings/index.d.ts"/>
+
+import { Component, OnInit, OnDestroy, ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 @Component({

@@ -10,12 +10,16 @@
   <ItemGroup>
     <Compile Remove="dev\node_modules\**" />
     <Compile Remove="dev\typings\**" />
+    <Compile Remove="typings\**" />
     <Content Remove="dev\node_modules\**" />
     <Content Remove="dev\typings\**" />
+    <Content Remove="typings\**" />
     <EmbeddedResource Remove="dev\node_modules\**" />
     <EmbeddedResource Remove="dev\typings\**" />
+    <EmbeddedResource Remove="typings\**" />
     <None Remove="dev\node_modules\**" />
     <None Remove="dev\typings\**" />
+    <None Remove="typings\**" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="wwwroot\**\*;web.config">
@@ -72,7 +76,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\dashboard\Dashboard.Api\Dashboard.Api.csproj" />
     <ProjectReference Include="..\..\dashboard\Dashboard.Bootstrap\Dashboard.Bootstrap.csproj" />
-    <ProjectReference Include="..\..\dashboard\Dashboard\Dashboard.csproj" />
     <ProjectReference Include="..\..\shared\CommonLib\CommonLib.csproj" />
   </ItemGroup>
   <ItemGroup>
