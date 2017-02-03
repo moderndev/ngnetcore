@@ -1,7 +1,11 @@
-﻿using System;
+﻿// <copyright file="Args.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace CommonLib
 {
+    using System;
+
     public static class Args
     {
         public static void NotNull<T>(T argument, string argumentName)

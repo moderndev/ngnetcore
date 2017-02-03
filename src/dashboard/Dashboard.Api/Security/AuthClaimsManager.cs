@@ -31,7 +31,7 @@ namespace Dashboard.Api.Security
             try {
                 await AuthenticationManager.SignOutAsync(AuthenticationSchemeNames.MDOpenIdConnect);
             }
-            catch (Exception ex) { }
+            catch { }
             
         }
 
@@ -58,7 +58,7 @@ namespace Dashboard.Api.Security
 
             //person.ProcessSuccesfulLogin(identityId);
             
-            principal = await CreatePrincipal(person, claims);
+            principal = CreatePrincipal(person, claims);
             
             //unitOfWork.Complete();
             //}
@@ -77,14 +77,14 @@ namespace Dashboard.Api.Security
             return externalClaimsPrincipal.Claims.Select(c => new Claim($"{"external_"}{c.Type}", c.Value)).ToList();
         }
 
-        private async Task<GenericPrincipal> CreatePrincipal(Person person, IEnumerable<Claim> claims)
+        private GenericPrincipal CreatePrincipal(Person person, IEnumerable<Claim> claims)
         {
             var roles = new[] { person.IsAccountVerified ? Roles.User : Roles.NonVerifiedUser };
             if (person.IsAdministrator) roles = roles.Append(Roles.Admin).ToArray();
-            return await CreatePrincipal(person, claims, roles);
+            return CreatePrincipal(person, claims, roles);
         }
 
-        private async Task<GenericPrincipal> CreatePrincipal(Person person, IEnumerable<Claim> claims, string[] roles)
+        private GenericPrincipal CreatePrincipal(Person person, IEnumerable<Claim> claims, string[] roles)
         {
             var allClaims = new List<Claim>();
             allClaims.AddRange(claims);

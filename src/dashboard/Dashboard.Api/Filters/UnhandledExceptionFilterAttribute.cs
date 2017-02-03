@@ -27,7 +27,7 @@ namespace Dashboard.Api.Filters
 
             context.HttpContext.Response.Headers.Add("aconex-error-id", errorId);
 
-            string errorMessage;
+            // string errorMessage;
             if (context.Exception is NotImplementedException)
             {
                 context.Result = new StatusCodeResult((int)HttpStatusCode.NotImplemented);
