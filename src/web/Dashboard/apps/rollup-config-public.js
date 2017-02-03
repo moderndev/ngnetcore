@@ -5,7 +5,7 @@ import uglify from 'rollup-plugin-uglify'
 
 export default {
     entry: '.build/public/boot-aot.js',
-    dest: 'wwwroot/app-public.min.js', // output a single application bundle
+    dest: 'wwwroot/ng2app-public.min.js', // output a single application bundle
     sourceMap: true,
     format: 'iife',
     moduleName: "PublicBundle",

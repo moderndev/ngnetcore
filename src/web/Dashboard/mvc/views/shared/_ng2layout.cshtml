@@ -3,13 +3,35 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>@ViewBag.Title</title>
+
+    <link rel="stylesheet" href="/themes/default.css" asp-append-version="true" enable-versioned-url="true" />
 </head>
 <body>
-    <header></header>
+    <main-app class="hidden"></main-app>
+
+    <script src="/js/jquery/dist/jquery.min.js" asp-append-version="true" enable-versioned-url="true"></script>
+    <script src="/js/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true" enable-versioned-url="true"></script>
+    <script src="/js/modernizr.js" asp-append-version="true" enable-versioned-url="true"></script>
+    <script src="~/js/markdown/lib/markdown.js" asp-append-version="true" enable-versioned-url="true"></script>
+    <script src="~/js/intl-tel-input/build/js/intlTelInput.min.js" asp-append-version="true" enable-versioned-url="true"></script>
+    <script src="~/js/intl-tel-input/build/js/utils.js" asp-append-version="true" enable-versioned-url="true"></script>
+    <script src="/js/core-js/client/shim.min.js" asp-append-version="true" enable-versioned-url="true"></script>
+    <script src="/js/shims_for_IE.js" asp-append-version="true" enable-versioned-url="true"></script> <!-- Pollyfill for IE9 to fix RequestAnimationKeyframe -->
+
+    <script src="/js/zone.js/dist/zone.min.js" asp-append-version="true" enable-versioned-url="true"></script>
+    <script src="/js/reflect-metadata/Reflect.js" asp-append-version="true" enable-versioned-url="true"></script>
+    <script src="/js/systemjs/dist/system.js" asp-append-version="true" enable-versioned-url="true"></script>
+
+    <script src="/js/dashboard.min.js" asp-append-version="true" enable-versioned-url="true"></script>
+
+    <script>
+        window.name = "dashboard";
+    </script>
+
 
     @RenderBody()
 
-    <br /><br /><br />
-    <footer> angular 2 app </footer>
 </body>
 </html>

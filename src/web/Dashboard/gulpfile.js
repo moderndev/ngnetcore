@@ -35,6 +35,7 @@ var paths = {
     testWebRoot: "./wwwroot-test/",
     staticRoot: "./static/",
     build: "./.build/",
+    buildAot: "./.build/.aot/",
     aot: "./apps/.aot/"
 };
 
@@ -137,7 +138,7 @@ gulp.task("translate-prep", "Translates the resources into additional language f
 // ==========
 
 gulp.task("clean:output", false, function (cb) {
-    return del([paths.webroot + "**/*", paths.build + "**/*", paths.aot + "**/*"]);
+    return del([paths.webroot + "**/*", paths.build + "**/*", paths.buildAot + "**/*", paths.aot + "**/*"]);
 });
 
 gulp.task("clean:test", false, function (cb) {
@@ -417,7 +418,7 @@ gulp.task("compile:modernizr:all", false, function (cb) {
 
 gulp.task("compile:public:jit", false, function () {
     return gulp.src(["systemjs.config.js", `${paths.approot}/public.jit.js`])
-        .pipe(concat("app-public.min.js"))
+        .pipe(concat("ng2app-public.min.js"))
         .pipe(gulp.dest(`${paths.webrootLabel}/`));
 });
 
