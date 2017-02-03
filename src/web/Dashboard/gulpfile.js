@@ -31,6 +31,7 @@ const Builder = require("systemjs-builder");
 var paths = {
     approot: "apps",
     webrootLabel: "wwwroot",
+    staticLabel: "static",
     webroot: "./wwwroot/",
     testWebRoot: "./wwwroot-test/",
     staticRoot: "./static/",
@@ -229,12 +230,13 @@ gulp.task("copy:static", false, function (cb) {
 });
 
 gulp.task("copy:static:root", false, function () {
-    return gulp.src(["_staticFiles/root/**/*"])
+    return gulp.src([`${paths.staticLabel}/root/**/*`])
         .pipe(gulp.dest(paths.webroot));
 });
 
 gulp.task("copy:static:nonRoot", false, function () {
-    return gulp.src(["_staticFiles/assets/**/*", "_staticFiles/js/**/*", "_staticFiles/css/**/*"], { base: "_staticFiles" })
+    return gulp.src([`${paths.staticLabel}/assets/**/*`, `${paths.staticLabel}/js/**/*`, `${paths.staticLabel}/css/**/*`], {
+        base: `${paths.staticLabel}` })
         .pipe(gulp.dest(paths.webroot));
 });
 
