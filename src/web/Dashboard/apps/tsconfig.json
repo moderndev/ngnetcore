@@ -26,7 +26,7 @@
     "common/components/_template/*"
   ],
   "angularCompilerOptions": {
-    "genDir": "../apps-aot",
+    "genDir": ".aot",
     "skipMetadataEmit": true
   }
 }

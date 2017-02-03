@@ -223,3 +223,4 @@ busters.json
 src/web/Dashboard/dev/typings/*
 src/web/Dashboard/wwwroot/*
 src/web/Dashboard/typings/*
+src/web/Dashboard/apps/.aot/*

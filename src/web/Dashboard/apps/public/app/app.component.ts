@@ -5,7 +5,7 @@ import { Routes, RouterModule } from "@angular/router";
 
 @Component({
     moduleId: module.id,
-    selector: "lobby-app",
+    selector: "public-app",
     templateUrl: "app.html"
 })
 export class PublicAppComponent implements OnInit, OnDestroy {

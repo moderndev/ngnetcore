@@ -9,6 +9,7 @@ import { RouterModule } from "@angular/router";
 import { LocationStrategy, HashLocationStrategy } from "@angular/common";
 import { HttpModule, ConnectionBackend, XHRBackend, RequestOptions, Http } from "@angular/http";
 import { PublicAppComponent } from "./app.component";
+import { PublicLoginComponent } from "../components/public-login/public-login.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { routing } from "./app.routing";
 
@@ -26,7 +27,8 @@ console.log("begin public app bootstrap");
         { provide: LocationStrategy, useClass: HashLocationStrategy }
     ],
     declarations: [
-        PublicAppComponent
+        PublicAppComponent,
+        PublicLoginComponent
     ],
     bootstrap: [PublicAppComponent]
 })

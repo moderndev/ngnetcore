@@ -79,7 +79,6 @@
     <ProjectReference Include="..\..\shared\CommonLib\CommonLib.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="apps\common\" />
     <Folder Include="apps\dashboard\" />
     <Folder Include="static\" />
   </ItemGroup>

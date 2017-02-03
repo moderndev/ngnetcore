@@ -25,7 +25,6 @@ var fs = require("fs");
 var exec = require("child_process").exec;
 var os = require("os");
 var es = require("event-stream");
-var auiBuilder = require("aconex-ui/build");
 
 const Builder = require("systemjs-builder");
 
@@ -36,7 +35,7 @@ var paths = {
     testWebRoot: "./wwwroot-test/",
     staticRoot: "./static/",
     build: "./build/",
-    aot: "./apps-aot/"
+    aot: "./apps/.aot/"
 };
 
 var auiOptions = {
@@ -51,8 +50,8 @@ paths.minJs = paths.webroot + "js/**/*.min.js";
 paths.staticMinJs = paths.staticRoot + "js/**/*.min.js";
 paths.css = paths.webroot + "css/**/*.css";
 paths.minCss = paths.webroot + "css/**/*.min.css";
-paths.concatJsDest = paths.webroot + "js/lobby.min.js";
-paths.concatCssDest = paths.webroot + "css/lobby.min.css";
+paths.concatJsDest = paths.webroot + "js/dashboard.min.js";
+paths.concatCssDest = paths.webroot + "css/dashboard.min.css";
 paths.copyJsDest = paths.webroot + "js/";
 
 
@@ -81,11 +80,6 @@ gulp.task("refresh:node", false, function (cb) {
 gulp.task("lint", "Lints the typescript and javascript files", function (cb) {
     runseq("lint:ts", "lint:js", cb);
 });
-
-gulp.task('aconex-ui-build', (done) => {
-    auiBuilder(auiOptions, done);
-});
-
 
 
 // ==========
@@ -423,7 +417,7 @@ gulp.task("compile:modernizr:all", false, function (cb) {
 
 gulp.task("compile:public:jit", false, function () {
     return gulp.src(["systemjs.config.js", `${paths.approot}/public.jit.js`])
-        .pipe(concat("lobby-app-public.min.js"))
+        .pipe(concat("app-public.min.js"))
         .pipe(gulp.dest(`${paths.webrootLabel}/`));
 });
 
@@ -460,7 +454,7 @@ gulp.task("bundle:rxjs", false, function (cb) {
         }
     });
 
-    return builder.bundle("rxjs", `${paths.webrootLabel}/js/rxjs/bundles/acxRx.js`, options);
+    return builder.bundle("rxjs", `${paths.webrootLabel}/js/rxjs/bundles/mdRx.js`, options);
 });
 
 
@@ -518,7 +512,7 @@ gulp.task("test:run", function (cb) {
     if (argv.jenkins) {
         options.reporters.push("junit");
         options.junitReporter = {
-            outputFile: path.join(__dirname, "../../artifacts/test-reports/client/Aconex.Lobby.Web.Client.xml")
+            outputFile: path.join(__dirname, "../../artifacts/test-reports/client/Web.Client.xml")
         };
     }
 

@@ -26,7 +26,7 @@
     "**/boot.ts"
   ],
   "angularCompilerOptions": {
-    "genDir": "../apps-aot",
+    "genDir": ".aot",
     "skipMetadataEmit": true
   }
 }

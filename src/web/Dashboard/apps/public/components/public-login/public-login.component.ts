@@ -5,7 +5,7 @@ import { RouterLink } from "@angular/router";
 
 @Component({
     moduleId: module.id,
-    selector: "acx-public-login",
+    selector: "public-login",
     templateUrl: "public-login.html",
     styleUrls: [ "public-login.css" ],
 })
