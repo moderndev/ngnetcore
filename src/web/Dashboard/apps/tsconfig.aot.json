@@ -9,7 +9,7 @@
     "removeComments": false,
     "sourceMap": true,
     "target": "es5",
-    "outDir": "../build",
+    "outDir": "../.build",
     "suppressImplicitAnyIndexErrors": true,
     "forceConsistentCasingInFileNames": true
   },

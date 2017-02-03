@@ -34,7 +34,7 @@ var paths = {
     webroot: "./wwwroot/",
     testWebRoot: "./wwwroot-test/",
     staticRoot: "./static/",
-    build: "./build/",
+    build: "./.build/",
     aot: "./apps/.aot/"
 };
 
