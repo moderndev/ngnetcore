@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace Dashboard
 {
@@ -11,9 +12,19 @@ namespace Dashboard
     {
         public static void Main(string[] args)
         {
+            string environmentName = "Development";
+
+            var hostingConfig = new ConfigurationBuilder()
+                .AddJsonFile("hosting.json", optional: true)
+                .AddCommandLine(args)
+                .AddEnvironmentVariables()
+                .Build();
+
             var host = new WebHostBuilder()
+                .UseConfiguration(hostingConfig)
+                .UseEnvironment(environmentName)
                 .UseKestrel()
-                .UseContentRoot($"{Directory.GetCurrentDirectory()}/mvc")
+                .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
@@ -22,3 +33,6 @@ namespace Dashboard
         }
     }
 }
+
+
+// http://benfoster.io/blog/how-to-configure-kestrel-urls-in-aspnet-core-rc2

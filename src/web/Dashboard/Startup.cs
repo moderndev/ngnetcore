@@ -21,11 +21,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Dashboard.Bootstrap;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace Dashboard
 {
     public class Startup
     {
+        private readonly IConfigurationRoot _configuration;
         private readonly ILoggerFactory _loggerFactory;
         private readonly IHostingEnvironment _env;
         private readonly ILogger<Startup> _logger;
@@ -35,7 +38,16 @@ namespace Dashboard
             _env = env;
             _loggerFactory = loggerFactory;
             _logger = loggerFactory.CreateLogger<Startup>();
-            
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath);
+
+            if (env.IsDevelopment())
+            {
+                builder.AddApplicationInsightsSettings(developerMode: true);
+            }
+
+            builder.AddEnvironmentVariables();
+            _configuration = builder.Build();
         }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -68,6 +80,12 @@ namespace Dashboard
             services.Configure<SharedAuthenticationOptions>(
                 options => { options.SignInScheme = AuthenticationSchemeNames.ClientCookie; });
 
+            // use a custom folder structure for views/controllers 
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.ViewLocationExpanders.Add(new MvcFolderLocationExpander());
+            });
+
             services.AddAuthentication();
 
             services.AddDataProtection().SetApplicationName("ModernDev");
@@ -97,7 +115,8 @@ namespace Dashboard
 
             SetupAuthentication(app);
 
-            app.UseMvcWithDefaultRoute();
+            //app.UseMvcWithDefaultRoute();
+            app.UseMvc();
 
             var fileServerOptions = new FileServerOptions { EnableDefaultFiles = true };
             fileServerOptions.StaticFileOptions.ServeUnknownFileTypes = true;
@@ -218,3 +237,6 @@ namespace Dashboard
         }
     }
 }
+
+
+
