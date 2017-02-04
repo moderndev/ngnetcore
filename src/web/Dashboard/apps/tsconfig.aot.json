@@ -21,7 +21,7 @@
     "node_modules",
     "typings",
     "wwwroot",
-    "build",
+    ".build",
     "common/components/_template/*",
     "**/boot.ts"
   ],

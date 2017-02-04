@@ -10,16 +10,16 @@
   <ItemGroup>
     <Compile Remove="dev\node_modules\**" />
     <Compile Remove="dev\typings\**" />
-    <Compile Remove="typings\**" />
     <Content Remove="dev\node_modules\**" />
     <Content Remove="dev\typings\**" />
-    <Content Remove="typings\**" />
     <EmbeddedResource Remove="dev\node_modules\**" />
     <EmbeddedResource Remove="dev\typings\**" />
-    <EmbeddedResource Remove="typings\**" />
     <None Remove="dev\node_modules\**" />
     <None Remove="dev\typings\**" />
-    <None Remove="typings\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="wwwroot\apps\public\boot.js" />
+    <Content Include="wwwroot\apps\public\boot.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="wwwroot\**\*;web.config">

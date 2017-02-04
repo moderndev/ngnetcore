@@ -11,6 +11,7 @@ import { HttpModule, ConnectionBackend, XHRBackend, RequestOptions, Http } from 
 import { PublicAppComponent } from "./app.component";
 import { PublicLoginComponent } from "../components/public-login/public-login.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { SharedModule } from "../../common/shared-module";
 import { routing } from "./app.routing";
 
 console.log("begin public app bootstrap");
@@ -21,6 +22,7 @@ console.log("begin public app bootstrap");
         HttpModule,
         FormsModule,
         ReactiveFormsModule,
+        SharedModule,
         routing
     ],
     providers: [

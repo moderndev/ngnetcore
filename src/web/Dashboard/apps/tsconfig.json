@@ -21,7 +21,7 @@
     "node_modules",
     "typings",
     "wwwroot",
-    "aot/*",
+    ".aot/*",
     "**/*-aot.ts",
     "common/components/_template/*"
   ],
