@@ -1,0 +1,85 @@
+﻿buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.moowork.gradle:gradle-node-plugin:0.13'
+    classpath 'com.moowork.gradle:gradle-gulp-plugin:0.13'
+  }
+}
+
+apply plugin: 'base'
+apply plugin: 'nebula.ospackage'
+apply plugin: 'com.moowork.node'
+apply plugin: 'com.moowork.gulp'
+
+def publishFolder = '.build/www'
+ospackage {
+  packageName = "moderndev.www"
+  version = packageVersion
+  release = System.getenv('GIT_COMMIT')?.substring(0,6) ?: 'nocommit'
+  arch = 'amd64'
+  os = LINUX
+
+  into("/opt/moderndev-www/app")
+
+  from(rootProject.file('deploy')) {
+      into '/opt/moderndev-www/deploy'
+  }
+
+  from(publishFolder)
+}
+
+buildDeb {
+    postInstallFile rootProject.file('deploy/postInstall-moderndev-www.sh')
+}
+
+buildRpm {
+  arch = NOARCH
+}
+
+task buildModerndevWWW(type:Exec, dependsOn:':dotnetRestore') {
+  description 'Builds Moderndev WWW'
+  workingDir '.'
+  executable 'dotnet'
+  args 'build', '--configuration', buildConfiguration
+}
+
+npm_install {
+  args = ['--progress=false', '--loglevel', 'warn', '--depth=0']
+}
+
+task typingsInstall(type:Exec, dependsOn: npm_install) {
+  description 'Installs typings'
+  workingDir '.'
+  executable org.gradle.internal.os.OperatingSystem.current().isWindows() ? "typings.cmd" : "typings"
+  args 'install'
+}
+
+// made this task depend on gulp default because if the prepublish scripts fail dotnet publish ignores the error
+// see: https://github.com/dotnet/cli/issues/3266
+task publishModerndevWWW(type:Exec, dependsOn:[gulp_default]) {
+  description 'Publishes Lobby Web'
+  workingDir '.'
+  executable 'dotnet'
+  args 'publish', '--output', publishFolder, '--configuration', buildConfiguration
+}
+
+gulp_default.dependsOn(typingsInstall)
+
+task gulpTest(type: GulpTask, dependsOn: typingsInstall) {
+   args = ["test", "--jenkins"]
+}
+
+task cleanModerndevWWWArtifacts(type:Delete) {
+    delete file(publishFolder)
+}
+
+buildDeb.dependsOn(publishModerndevWWW)
+buildRpm.dependsOn(publishModerndevWWW)
+
+rootProject.build.dependsOn(publishModerndevWWW)
+rootProject.check.dependsOn(gulpTest)
+rootProject.clean.dependsOn(cleanModerndevWWWArtifacts)
+
+build.dependsOn(buildDeb)

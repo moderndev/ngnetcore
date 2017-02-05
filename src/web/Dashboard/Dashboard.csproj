@@ -18,10 +18,6 @@
     <None Remove="dev\typings\**" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="wwwroot\apps\public\boot.js" />
-    <Content Include="wwwroot\apps\public\boot.js.map" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Update="wwwroot\**\*;web.config">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

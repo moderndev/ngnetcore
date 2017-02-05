@@ -1,0 +1,4 @@
+rootProject.name = 'moderndev-root'
+include ':src:web:Dashboard'
+
+project(':src:web:Dashboard').projectDir = "$rootDir/src/web/Dashboard" as File
