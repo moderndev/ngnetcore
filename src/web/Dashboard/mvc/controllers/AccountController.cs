@@ -25,6 +25,7 @@ namespace Dashboard.mvc.controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [Route("/Account/Login")]
         public IActionResult Login(string returnUrl = null)
         {
             if (returnUrl == null) returnUrl = string.Empty;
@@ -33,6 +34,7 @@ namespace Dashboard.mvc.controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [Route("/Account/ExternalIdpLogin")]
         public IActionResult ExternalIdpLogin(string provider, string returnUrl = null)
         {
             var props = new AuthenticationProperties
@@ -46,6 +48,7 @@ namespace Dashboard.mvc.controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [Route("/Account/ExternalIdpLoginCallback")]
         public async Task<IActionResult> ExternalIdpLoginCallback(string returnUrl = "/")
         {
             var externalClaimsPrincipal = await HttpContext.Authentication.AuthenticateAsync(AuthenticationSchemeNames.ClientCookieTemp);
@@ -62,6 +65,7 @@ namespace Dashboard.mvc.controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [Route("/Account/Logout")]
         public async Task<IActionResult> Logout()
         {
             await _authClaimsManager.Logout();
@@ -71,6 +75,8 @@ namespace Dashboard.mvc.controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
+        [Route("/Account/AccessDenied")]
         public IActionResult AccessDenied()
         {
             if (HttpContext.User.IsInRole(Roles.NonVerifiedUser))

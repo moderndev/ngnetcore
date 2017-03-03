@@ -4,6 +4,6 @@
     {
         public static string ClientCookie = "MDCookie";
         public static string ClientCookieTemp = "MDCookieTemp";
-        public static string MDOpenIdConnect = "oidc"; //"MDOpenIdConnect";
+        public static string MDOpenIdConnect = "MitreIdOpenIdConnect"; //"oidc"; //"MDOpenIdConnect";
     }
 }
